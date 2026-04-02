@@ -1,0 +1,60 @@
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  background: #1e293b;
+  color: white;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.tabs button:hover {
+  background: #334155;
+}
+
+.content {
+  display: none;
+  margin-top: 20px;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+input {
+  padding: 8px;
+  margin: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+button.calc {
+  background: #22c55e;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button.calc:hover {
+  background: #16a34a;
+}
+
+.result {
+  margin-top: 15px;
+  font-weight: bold;
+}

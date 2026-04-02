@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>App Matemático</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>📊 App Matemático</h1>
+
+<div class="tabs">
+  <button onclick="showTab('juros')">Juros</button>
+  <button onclick="showTab('equacao1')">Equação 1º</button>
+  <button onclick="showTab('equacao2')">Equação 2º</button>
+  <button onclick="showTab('jurosSimples')">Juros Simples</button>
+<button onclick="showTab('inequacao1')">Ineq 1º</button>
+<button onclick="showTab('inequacao2')">Ineq 2º</button>
+</div>
+
+<!-- JUROS -->
+<div id="juros" class="content">
+  <h2>💰 Juros Compostos</h2>
+  <input type="number" id="capital" placeholder="Capital">
+  <input type="number" id="taxa" placeholder="Taxa (%)">
+  <input type="number" id="tempo" placeholder="Tempo">
+  <br>
+  <button class="calc" onclick="calcularJuros()">Calcular</button>
+  <div class="result" id="resultadoJuros"></div>
+</div>
+
+<!-- EQUAÇÃO 1 -->
+<div id="equacao1" class="content">
+  <h2>📐 Equação 1º grau</h2>
+  <input type="number" id="a1" placeholder="a">
+  <input type="number" id="b1" placeholder="b">
+  <br>
+  <button class="calc" onclick="resolverEquacao1()">Resolver</button>
+  <div class="result" id="resultadoEquacao1"></div>
+</div>
+
+<!-- EQUAÇÃO 2 -->
+<div id="equacao2" class="content">
+  <h2>📐 Equação 2º grau</h2>
+  <input type="number" id="a2" placeholder="a">
+  <input type="number" id="b2" placeholder="b">
+  <input type="number" id="c2" placeholder="c">
+  <br>
+  <button class="calc" onclick="resolverEquacao2()">Resolver</button>
+  <div class="result" id="resultadoEquacao2"></div>
+</div>
+<div id="jurosSimples" class="content">
+  <h2>💰 Juros Simples</h2>
+  <input type="number" id="capitalS" placeholder="Capital">
+  <input type="number" id="taxaS" placeholder="Taxa (%)">
+  <input type="number" id="tempoS" placeholder="Tempo">
+  <br>
+  <button class="calc" onclick="calcularJurosSimples()">Calcular</button>
+  <div class="result" id="resultadoJurosSimples"></div>
+</div> 
+<div id="jurosSimples" class="content">
+  <h2>💰 Juros Simples</h2>
+  <input type="number" id="capitalS" placeholder="Capital">
+  <input type="number" id="taxaS" placeholder="Taxa (%)">
+  <input type="number" id="tempoS" placeholder="Tempo">
+  <br>
+  <button class="calc" onclick="calcularJurosSimples()">Calcular</button>
+  <div class="result" id="resultadoJurosSimples"></div>
+</div>
+<div id="inequacao2" class="content">
+  <h2>⚖️ Inequação 2º grau (ax² + bx + c > 0)</h2>
+  <input type="number" id="aI2" placeholder="a">
+  <input type="number" id="bI2" placeholder="b">
+  <input type="number" id="cI2" placeholder="c">
+  <br>
+  <button class="calc" onclick="resolverInequacao2()">Resolver</button>
+  <div class="result" id="resultadoIneq2"></div>
+</div>
+<div id="jurosSimples" class="content">
+  <h2>💰 Juros Simples</h2>
+  <input type="number" id="capitalS" placeholder="Capital">
+  <input type="number" id="taxaS" placeholder="Taxa (%)">
+  <input type="number" id="tempoS" placeholder="Tempo">
+  <br>
+  <button class="calc" onclick="calcularJurosSimples()">Calcular</button>
+  <div class="result" id="resultadoJurosSimples"></div>
+</div> 
+<div id="jurosSimples" class="content">
+  <h2>💰 Juros Simples</h2>
+  <input type="number" id="capitalS" placeholder="Capital">
+  <input type="number" id="taxaS" placeholder="Taxa (%)">
+  <input type="number" id="tempoS" placeholder="Tempo">
+  <br>
+  <button class="calc" onclick="calcularJurosSimples()">Calcular</button>
+  <div class="result" id="resultadoJurosSimples"></div>
+</div>
+<div id="inequacao2" class="content">
+  <h2>⚖️ Inequação 2º grau (ax² + bx + c > 0)</h2>
+  <input type="number" id="aI2" placeholder="a">
+  <input type="number" id="bI2" placeholder="b">
+  <input type="number" id="cI2" placeholder="c">
+  <br>
+  <button class="calc" onclick="resolverInequacao2()">Resolver</button>
+  <div class="result" id="resultadoIneq2"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
