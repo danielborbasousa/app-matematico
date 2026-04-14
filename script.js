@@ -1,145 +1,115 @@
-function showTab(tab) {
-  document.querySelectorAll('.content').forEach(div => {
-    div.style.display = 'none';
+// TEMAS
+const themes = ['theme-cyber', 'theme-ocean', 'theme-aurora'];
+const icons = ['🚀', '🌊', '🌅'];
+let currentTheme = 0;
+
+document.getElementById('themeCycle').addEventListener('click', () => {
+  document.body.classList.remove(themes[currentTheme]);
+  currentTheme = (currentTheme + 1) % themes.length;
+  document.body.classList.add(themes[currentTheme]);
+  document.querySelector('.theme-icon').textContent = icons[currentTheme];
+});
+
+// NAVEGAÇÃO
+document.querySelectorAll('.tab-btn').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+    document.getElementById('moduloAtivo').textContent = tab.textContent;
   });
-  document.getElementById(tab).style.display = 'block';
+});
+
+// ESTADOS
+let jurosMode = 'composto';
+let eqDegree = 2;
+let ineqDegree = 1;
+
+function setJurosMode(m, btn) { jurosMode = m; toggleModeBtn(btn); }
+function setEqDegree(d, btn) { 
+  eqDegree = d; 
+  document.getElementById('boxEqC').style.display = (d === 1) ? 'none' : 'block';
+  toggleModeBtn(btn); 
+}
+function setIneqDegree(d, btn) { 
+  ineqDegree = d; 
+  document.getElementById('boxIneqC').style.display = (d === 1) ? 'none' : 'block';
+  toggleModeBtn(btn); 
 }
 
-// JUROS COMPOSTOS
-function calcularJuros() {
-  let c = parseFloat(document.getElementById("capital").value);
-  let i = parseFloat(document.getElementById("taxa").value) / 100;
-  let t = parseFloat(document.getElementById("tempo").value);
-
-  if (isNaN(c) || isNaN(i) || isNaN(t)) {
-    document.getElementById("resultadoJuros").innerText = "Preencha todos os campos!";
-    return;
-  }
-
-  let montante = c * Math.pow(1 + i, t);
-  let juros = montante - c;
-
-  document.getElementById("resultadoJuros").innerText =
-    `Montante: R$ ${montante.toFixed(2)} | Juros: R$ ${juros.toFixed(2)}`;
+function toggleModeBtn(btn) {
+  btn.parentElement.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 }
 
-// EQUAÇÃO 1º GRAU
-function resolverEquacao1() {
-  let a = parseFloat(document.getElementById("a1").value);
-  let b = parseFloat(document.getElementById("b1").value);
-
-  if (a === 0 || isNaN(a) || isNaN(b)) {
-    document.getElementById("resultadoEquacao1").innerText = "Valores inválidos!";
-    return;
-  }
-
-  let x = -b / a;
-  document.getElementById("resultadoEquacao1").innerText = `x = ${x}`;
+// MATEMÁTICA
+function addLog(msg) {
+  const lista = document.getElementById('historicoLista');
+  const li = document.createElement('li');
+  li.className = 'history-item';
+  li.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  lista.prepend(li);
 }
 
-// EQUAÇÃO 2º GRAU
-function resolverEquacao2() {
-  let a = parseFloat(document.getElementById("a2").value);
-  let b = parseFloat(document.getElementById("b2").value);
-  let c = parseFloat(document.getElementById("c2").value);
-
-  if (a === 0 || isNaN(a) || isNaN(b) || isNaN(c)) {
-    document.getElementById("resultadoEquacao2").innerText = "Valores inválidos!";
-    return;
-  }
-
-  let delta = b * b - 4 * a * c;
-
-  function formatTerm(value, power) {
-    if (value === 0) return "";
-    let absValue = Math.abs(value);
-    let sign = value < 0 ? " - " : " + ";
-    let base = power === 2 ? `${absValue}x²` : `${absValue}x`;
-    if (absValue === 1) base = power === 2 ? "x²" : "x";
-    return sign + base;
-  }
-
-  let equacao = `${a}x²`;
-  equacao += formatTerm(b, 1);
-  equacao += formatTerm(c, 0);
-  equacao += " = 0";
-
-  if (delta < 0) {
-    document.getElementById("resultadoEquacao2").innerText =
-      `Equação: ${equacao} | Sem raízes reais.`;
-    return;
-  }
-
-  let x1 = (-b + Math.sqrt(delta)) / (2 * a);
-  let x2 = (-b - Math.sqrt(delta)) / (2 * a);
-
-  document.getElementById("resultadoEquacao2").innerText =
-    `Equação: ${equacao} | x1 = ${x1.toFixed(4)} | x2 = ${x2.toFixed(4)}`;
+function limparCampos(id) {
+  const p = document.getElementById(id);
+  p.querySelectorAll('input').forEach(i => i.value = '');
+  p.querySelector('.result').textContent = '';
 }
 
-// abrir aba padrão
-showTab('juros');
+function calcJuros() {
+  const c = parseFloat(document.getElementById('jCap').value);
+  const i = parseFloat(document.getElementById('jTax').value) / 100;
+  const t = parseFloat(document.getElementById('jTime').value);
+  if (isNaN(c) || isNaN(i) || isNaN(t)) return;
 
-function calcularJurosSimples() {
-  let c = parseFloat(document.getElementById("capitalS").value);
-  let i = parseFloat(document.getElementById("taxaS").value) / 100;
-  let t = parseFloat(document.getElementById("tempoS").value);
-
-  if (isNaN(c) || isNaN(i) || isNaN(t)) {
-    document.getElementById("resultadoJurosSimples").innerText = "Preencha todos os campos!";
-    return;
-  }
-
-  let juros = c * i * t;
-  let montante = c + juros;
-
-  document.getElementById("resultadoJurosSimples").innerText =
-    `Juros: R$ ${juros.toFixed(2)} | Montante: R$ ${montante.toFixed(2)}`;
-}
-function resolverInequacao1() {
-  let a = parseFloat(document.getElementById("aI1").value);
-  let b = parseFloat(document.getElementById("bI1").value);
-
-  if (a === 0 || isNaN(a) || isNaN(b)) {
-    document.getElementById("resultadoIneq1").innerText = "Valores inválidos!";
-    return;
-  }
-
-  let x = -b / a;
-  let resultado = a > 0 ? `x > ${x}` : `x < ${x}`;
-
-  document.getElementById("resultadoIneq1").innerText = resultado;
+  let total = (jurosMode === 'composto') ? c * Math.pow((1 + i), t) : c + (c * i * t);
+  document.getElementById('resJuros').innerHTML = `Total: R$ ${total.toFixed(2)}<br>Juros: R$ ${(total - c).toFixed(2)}`;
+  addLog(`Juros ${jurosMode}: R$ ${total.toFixed(2)}`);
 }
 
-function resolverInequacao2() {
-  let a = parseFloat(document.getElementById("aI2").value);
-  let b = parseFloat(document.getElementById("bI2").value);
-  let c = parseFloat(document.getElementById("cI2").value);
+function resolverEquacao() {
+  const a = parseFloat(document.getElementById('eqA').value);
+  const b = parseFloat(document.getElementById('eqB').value);
+  const c = parseFloat(document.getElementById('eqC').value) || 0;
+  const res = document.getElementById('resEq');
 
-  if (a === 0 || isNaN(a) || isNaN(b) || isNaN(c)) {
-    document.getElementById("resultadoIneq2").innerText = "Valores inválidos!";
-    return;
-  }
+  if (isNaN(a) || isNaN(b)) return;
 
-  let delta = b*b - 4*a*c;
-
-  if (delta < 0) {
-    if (a > 0) {
-      document.getElementById("resultadoIneq2").innerText = "Sempre positiva (∀x)";
-    } else {
-      document.getElementById("resultadoIneq2").innerText = "Sempre negativa (sem solução)";
-    }
-    return;
-  }
-
-  let x1 = (-b - Math.sqrt(delta)) / (2*a);
-  let x2 = (-b + Math.sqrt(delta)) / (2*a);
-
-  if (a > 0) {
-    document.getElementById("resultadoIneq2").innerText =
-      `x < ${x1.toFixed(2)} ou x > ${x2.toFixed(2)}`;
+  if (eqDegree === 1) {
+    res.textContent = `x = ${(-b / a).toFixed(4)}`;
+    addLog(`Eq 1º Grau: x=${(-b/a).toFixed(2)}`);
   } else {
-    document.getElementById("resultadoIneq2").innerText =
-      `x entre ${x1.toFixed(2)} e ${x2.toFixed(2)}`;
+    const delta = (b * b) - (4 * a * c);
+    if (delta < 0) res.textContent = "Sem raízes reais (Δ < 0)";
+    else {
+      const x1 = (-b + Math.sqrt(delta)) / (2 * a);
+      const x2 = (-b - Math.sqrt(delta)) / (2 * a);
+      res.innerHTML = `x1 = ${x1.toFixed(4)}<br>x2 = ${x2.toFixed(4)}<br>Δ = ${delta}`;
+      addLog(`Eq 2º Grau: Δ=${delta}`);
+    }
   }
 }
+
+function resolverInequacao() {
+  const a = parseFloat(document.getElementById('ineqA').value);
+  const b = parseFloat(document.getElementById('ineqB').value);
+  const sign = document.getElementById('ineqSign').value;
+  const res = document.getElementById('resIneq');
+  if (isNaN(a) || isNaN(b)) return;
+
+  let x = -b / a;
+  let s = (a > 0) ? sign : (sign === '>' ? '<' : '>');
+  res.textContent = `Solução: x ${s} ${x.toFixed(2)}`;
+  addLog(`Ineq: x ${s} ${x.toFixed(2)}`);
+}
+
+function calcSets(op) {
+  const a = document.getElementById('setA').value.split(',').map(s => s.trim());
+  const b = document.getElementById('setB').value.split(',').map(s => s.trim());
+  let r = (op === 'uniao') ? [...new Set([...a, ...b])] : a.filter(x => b.includes(x));
+  document.getElementById('resSets').textContent = `{ ${r.join(', ')} }`;
+}
+
+function limparHistorico() { document.getElementById('historicoLista').innerHTML = ''; }

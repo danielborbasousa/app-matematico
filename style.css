@@ -1,60 +1,147 @@
+:root {
+  --transition: all 0.3s ease;
+}
+
+/* TEMAS */
+.theme-cyber {
+  --bg: radial-gradient(circle at 20% 20%, #120522 0%, #050505 100%);
+  --panel: rgba(15, 10, 25, 0.98);
+  --text: #e0e0ff;
+  --accent: #bc13fe;
+  --accent-glow: rgba(188, 19, 254, 0.5);
+  --border: #332255;
+  --input-bg: rgba(20, 15, 35, 0.8);
+}
+
+.theme-ocean {
+  --bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  --panel: rgba(10, 25, 35, 0.95);
+  --text: #f0ffff;
+  --accent: #009fb7;
+  --accent-glow: rgba(0, 159, 183, 0.5);
+  --border: #1a3a4a;
+  --input-bg: rgba(10, 20, 30, 0.8);
+}
+
+.theme-aurora {
+  --bg: linear-gradient(215deg, #134e5e, #71b280);
+  --panel: rgba(255, 255, 255, 0.1);
+  --text: #ffffff;
+  --accent: #00ff88;
+  --accent-glow: rgba(0, 255, 136, 0.4);
+  --border: rgba(255, 255, 255, 0.2);
+  --input-bg: rgba(0, 0, 0, 0.2);
+}
+
+* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
 body {
-  font-family: Arial;
-  background: #0f172a;
-  color: white;
-  text-align: center;
-  padding: 20px;
+  margin: 0; min-height: 100vh;
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg); background-attachment: fixed;
+  color: var(--text); display: flex; align-items: center; justify-content: center;
+  transition: var(--transition); padding: 20px;
 }
 
-h1 {
-  margin-bottom: 20px;
+.app-shell {
+  width: 100%; max-width: 900px;
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 30px; padding: 40px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+  backdrop-filter: blur(20px);
 }
 
-.tabs button {
-  padding: 10px 20px;
-  margin: 5px;
-  border: none;
-  cursor: pointer;
-  background: #1e293b;
+/* HEADER */
+.hero { position: relative; margin-bottom: 30px; }
+.theme-toggle {
+  position: absolute; top: 0; right: 0;
+  width: 50px; height: 50px; border-radius: 50%;
+  border: none; cursor: pointer; background: var(--accent);
+  color: white; font-size: 1.2rem; box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* NAVEGAÇÃO */
+.tab-bar { display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 5px; }
+.tab-btn {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text); padding: 12px 24px; border-radius: 12px;
+  cursor: pointer; font-weight: 600; white-space: nowrap; transition: 0.2s;
+}
+.tab-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+/* GRID DE INPUTS (FIX DO BUG) */
+.grid-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px; /* Isso garante que os campos não grudem */
+  margin-bottom: 30px;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Espaço entre o título (a, b) e a caixa */
+}
+
+.input-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-left: 5px;
+}
+
+input, select {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  padding: 15px;
+  border-radius: 15px; /* Arredondado em todos os lados */
   color: white;
-  border-radius: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem;
   transition: 0.3s;
 }
 
-.tabs button:hover {
-  background: #334155;
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
-.content {
-  display: none;
-  margin-top: 20px;
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 10px;
+/* BOTÕES E RESULTADO */
+.actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.action {
+  background: var(--accent); color: white; border: none;
+  padding: 16px 32px; border-radius: 14px; cursor: pointer;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
 }
-
-input {
-  padding: 8px;
-  margin: 5px;
-  border-radius: 5px;
-  border: none;
-}
-
-button.calc {
-  background: #22c55e;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button.calc:hover {
-  background: #16a34a;
+.ghost-action {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text); padding: 16px 32px; border-radius: 14px; cursor: pointer;
 }
 
 .result {
-  margin-top: 15px;
-  font-weight: bold;
+  margin-top: 30px; padding: 25px; background: rgba(0,0,0,0.3);
+  border-left: 6px solid var(--accent); border-radius: 15px;
+  font-family: 'IBM Plex Mono', monospace; color: #00f2fe;
+  font-size: 1.1rem; line-height: 1.6; min-height: 80px;
 }
+
+/* SELETORES DE MODO */
+.degree-selector { display: flex; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 12px; gap: 5px; }
+.mode-btn {
+  background: transparent; border: none; color: var(--text);
+  padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 700;
+}
+.mode-btn.active { background: var(--accent); color: white; }
+
+.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+
+.panel { display: none; }
+.panel.active { display: block; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.history-box { max-height: 200px; overflow-y: auto; background: rgba(0,0,0,0.3); border-radius: 15px; padding: 15px; margin-bottom: 20px; }
+.history-list { list-style: none; padding: 0; margin: 0; }
+.history-item { padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }

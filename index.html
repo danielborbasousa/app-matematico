@@ -2,107 +2,131 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>App Matemático</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Matrix v3.5 </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="theme-cyber">
+  <main class="app-shell">
+    <header class="hero">
+      <button id="themeCycle" class="theme-toggle" title="Trocar Estilo Visual">
+        <span class="theme-icon">🚀</span>
+      </button>
+      <p class="eyebrow">Feito por: Daniel de Borba Sousa</p>
+      <h1>Math<span class="accent-text">Matrix</span></h1>
+      <div class="header-meta">
+        <p class="active-module">Módulo: <strong id="moduloAtivo">Juros</strong></p>
+      </div>
+    </header>
 
-<h1>📊 App Matemático</h1>
+    <nav class="tab-bar">
+      <button class="tab-btn active" data-tab="juros">Juros</button>
+      <button class="tab-btn" data-tab="equacoes">Equações</button>
+      <button class="tab-btn" data-tab="inequacoes">Inequações</button>
+      <button class="tab-btn" data-tab="conjuntos">Conjuntos</button>
+      <button class="tab-btn" data-tab="historico">Histórico</button>
+    </nav>
 
-<div class="tabs">
-  <button onclick="showTab('juros')">Juros</button>
-  <button onclick="showTab('equacao1')">Equação 1º</button>
-  <button onclick="showTab('equacao2')">Equação 2º</button>
-  <button onclick="showTab('jurosSimples')">Juros Simples</button>
-<button onclick="showTab('inequacao1')">Ineq 1º</button>
-<button onclick="showTab('inequacao2')">Ineq 2º</button>
-</div>
+    <section id="juros" class="panel active">
+      <div class="panel-header">
+        <h2>Cálculo de Juros</h2>
+        <div class="degree-selector">
+          <button class="mode-btn active" onclick="setJurosMode('composto', this)">Composto</button>
+          <button class="mode-btn" onclick="setJurosMode('simples', this)">Simples</button>
+        </div>
+      </div>
+      <div class="grid-inputs">
+        <div class="input-field">
+          <label>Capital (C)</label>
+          <input type="number" id="jCap" placeholder="R$ 0.00">
+        </div>
+        <div class="input-field">
+          <label>Taxa % (i)</label>
+          <input type="number" id="jTax" placeholder="Ex: 2.5">
+        </div>
+        <div class="input-field">
+          <label>Tempo (t)</label>
+          <input type="number" id="jTime" placeholder="Ex: 12">
+        </div>
+      </div>
+      <div class="actions">
+        <button class="action" onclick="calcJuros()">Processar</button>
+        <button class="ghost-action" onclick="limparCampos('juros')">Limpar</button>
+      </div>
+      <p class="result" id="resJuros"></p>
+    </section>
 
-<!-- JUROS -->
-<div id="juros" class="content">
-  <h2>💰 Juros Compostos</h2>
-  <input type="number" id="capital" placeholder="Capital">
-  <input type="number" id="taxa" placeholder="Taxa (%)">
-  <input type="number" id="tempo" placeholder="Tempo">
-  <br>
-  <button class="calc" onclick="calcularJuros()">Calcular</button>
-  <div class="result" id="resultadoJuros"></div>
-</div>
+    <section id="equacoes" class="panel">
+      <div class="panel-header">
+        <h2>Equações</h2>
+        <div class="degree-selector">
+          <button class="mode-btn" onclick="setEqDegree(1, this)">1º Grau</button>
+          <button class="mode-btn active" onclick="setEqDegree(2, this)">2º Grau</button>
+        </div>
+      </div>
+      <div class="grid-inputs">
+        <div class="input-field"><label>a</label><input type="number" id="eqA" placeholder="Coef. a"></div>
+        <div class="input-field"><label>b</label><input type="number" id="eqB" placeholder="Coef. b"></div>
+        <div class="input-field" id="boxEqC"><label>c</label><input type="number" id="eqC" placeholder="Coef. c"></div>
+      </div>
+      <div class="actions">
+        <button class="action" onclick="resolverEquacao()">Resolver</button>
+        <button class="ghost-action" onclick="limparCampos('equacoes')">Limpar</button>
+      </div>
+      <p class="result" id="resEq"></p>
+    </section>
 
-<!-- EQUAÇÃO 1 -->
-<div id="equacao1" class="content">
-  <h2>📐 Equação 1º grau</h2>
-  <input type="number" id="a1" placeholder="a">
-  <input type="number" id="b1" placeholder="b">
-  <br>
-  <button class="calc" onclick="resolverEquacao1()">Resolver</button>
-  <div class="result" id="resultadoEquacao1"></div>
-</div>
+    <section id="inequacoes" class="panel">
+      <div class="panel-header">
+        <h2>Inequações</h2>
+        <div class="degree-selector">
+          <button class="mode-btn active" onclick="setIneqDegree(1, this)">1º Grau</button>
+          <button class="mode-btn" onclick="setIneqDegree(2, this)">2º Grau</button>
+        </div>
+      </div>
+      <div class="grid-inputs">
+        <div class="input-field"><label>a</label><input type="number" id="ineqA" placeholder="Coef. a"></div>
+        <div class="input-field"><label>b</label><input type="number" id="ineqB" placeholder="Coef. b"></div>
+        <div class="input-field" id="boxIneqC" style="display:none"><label>c</label><input type="number" id="ineqC" placeholder="Coef. c"></div>
+        <div class="input-field">
+          <label>Sinal</label>
+          <select id="ineqSign">
+            <option value=">">Maior que (>)</option>
+            <option value="<">Menor que (<)</option>
+          </select>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="action" onclick="resolverInequacao()">Analisar</button>
+        <button class="ghost-action" onclick="limparCampos('inequacoes')">Limpar</button>
+      </div>
+      <p class="result" id="resIneq"></p>
+    </section>
 
-<!-- EQUAÇÃO 2 -->
-<div id="equacao2" class="content">
-  <h2>📐 Equação 2º grau</h2>
-  <input type="number" id="a2" placeholder="a">
-  <input type="number" id="b2" placeholder="b">
-  <input type="number" id="c2" placeholder="c">
-  <br>
-  <button class="calc" onclick="resolverEquacao2()">Resolver</button>
-  <div class="result" id="resultadoEquacao2"></div>
-</div>
-<div id="jurosSimples" class="content">
-  <h2>💰 Juros Simples</h2>
-  <input type="number" id="capitalS" placeholder="Capital">
-  <input type="number" id="taxaS" placeholder="Taxa (%)">
-  <input type="number" id="tempoS" placeholder="Tempo">
-  <br>
-  <button class="calc" onclick="calcularJurosSimples()">Calcular</button>
-  <div class="result" id="resultadoJurosSimples"></div>
-</div> 
-<div id="jurosSimples" class="content">
-  <h2>💰 Juros Simples</h2>
-  <input type="number" id="capitalS" placeholder="Capital">
-  <input type="number" id="taxaS" placeholder="Taxa (%)">
-  <input type="number" id="tempoS" placeholder="Tempo">
-  <br>
-  <button class="calc" onclick="calcularJurosSimples()">Calcular</button>
-  <div class="result" id="resultadoJurosSimples"></div>
-</div>
-<div id="inequacao2" class="content">
-  <h2>⚖️ Inequação 2º grau (ax² + bx + c > 0)</h2>
-  <input type="number" id="aI2" placeholder="a">
-  <input type="number" id="bI2" placeholder="b">
-  <input type="number" id="cI2" placeholder="c">
-  <br>
-  <button class="calc" onclick="resolverInequacao2()">Resolver</button>
-  <div class="result" id="resultadoIneq2"></div>
-</div>
-<div id="jurosSimples" class="content">
-  <h2>💰 Juros Simples</h2>
-  <input type="number" id="capitalS" placeholder="Capital">
-  <input type="number" id="taxaS" placeholder="Taxa (%)">
-  <input type="number" id="tempoS" placeholder="Tempo">
-  <br>
-  <button class="calc" onclick="calcularJurosSimples()">Calcular</button>
-  <div class="result" id="resultadoJurosSimples"></div>
-</div> 
-<div id="jurosSimples" class="content">
-  <h2>💰 Juros Simples</h2>
-  <input type="number" id="capitalS" placeholder="Capital">
-  <input type="number" id="taxaS" placeholder="Taxa (%)">
-  <input type="number" id="tempoS" placeholder="Tempo">
-  <br>
-  <button class="calc" onclick="calcularJurosSimples()">Calcular</button>
-  <div class="result" id="resultadoJurosSimples"></div>
-</div>
-<div id="inequacao2" class="content">
-  <h2>⚖️ Inequação 2º grau (ax² + bx + c > 0)</h2>
-  <input type="number" id="aI2" placeholder="a">
-  <input type="number" id="bI2" placeholder="b">
-  <input type="number" id="cI2" placeholder="c">
-  <br>
-  <button class="calc" onclick="resolverInequacao2()">Resolver</button>
-  <div class="result" id="resultadoIneq2"></div>
-</div>
-<script src="script.js"></script>
+    <section id="conjuntos" class="panel">
+      <h2>Conjuntos</h2>
+      <div class="grid-inputs">
+        <div class="input-field"><label>A</label><input type="text" id="setA" placeholder="1, 2, 3"></div>
+        <div class="input-field"><label>B</label><input type="text" id="setB" placeholder="3, 4, 5"></div>
+      </div>
+      <div class="actions">
+        <button class="action" onclick="calcSets('uniao')">União (∪)</button>
+        <button class="action" onclick="calcSets('inter')">Interseção (∩)</button>
+      </div>
+      <p class="result" id="resSets"></p>
+    </section>
+
+    <section id="historico" class="panel">
+      <h2>Log de Atividade</h2>
+      <div class="history-box">
+        <ul id="historicoLista" class="history-list"></ul>
+      </div>
+      <button class="ghost-action" onclick="limparHistorico()">Limpar Log</button>
+    </section>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
