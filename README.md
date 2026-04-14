@@ -1,143 +1,85 @@
-# 📊 App Matemático Web
 
-Um aplicativo web simples desenvolvido com **HTML, CSS e JavaScript puro**, com o objetivo de resolver problemas básicos de matemática financeira e álgebra.
+-----
 
----
+# 🚀 Math Matrix v3.5 | Resenha Edition
 
-## 🚀 Funcionalidades
+**Math Matrix** é uma engine matemática de alta performance com interface futurista, projetada para resolver cálculos complexos de Juros, Equações, Inequações e Conjuntos com precisão e estilo.
 
-O sistema foi dividido em módulos para facilitar o uso:
+Desenvolvido com uma estética **Sci-Fi Premium**, o sistema oferece uma experiência de usuário (UX) fluida, alternando entre três atmosferas visuais dinâmicas baseadas em gradientes.
 
-### 💰 Juros
+-----
 
-* Cálculo de **juros simples**
-* Cálculo de **juros compostos**
-* Retorno de:
+## 🎨 Trindade de Temas (Tri-Theme System)
 
-  * Juros gerados
-  * Montante final
+O sistema não possui apenas um "modo escuro", mas sim três atmosferas completas que transformam toda a interface com um clique:
 
----
+  * **🚀 Modo Cyberpunk:** O coração do sistema. Preto profundo, roxo neon e brilho cromo. Ideal para sessões noturnas de codificação.
+  * **🌊 Modo Ocean:** Gradientes em tons de azul e teal, oferecendo um visual focado e profissional com alta legibilidade.
+  * **🌅 Modo Aurora:** Uma interface de vidro (*glassmorphism*) com gradientes verdes e teal, transmitindo modernidade e leveza.
 
-### 📐 Equações
+-----
 
-* **Equação do 1º grau**
+## 🛠️ Módulos de Cálculo
 
-  * Formato: `ax + b = 0`
-  * Retorna o valor de `x`
+### 1\. Financeiro (Juros)
 
-* **Equação do 2º grau**
+  * **Juros Compostos:** Cálculo de montante acumulado e lucro real.
+  * **Juros Simples:** Crescimento linear de capital.
+  * **Conversão Automática:** Lógica interna para tratar taxas e períodos.
 
-  * Formato: `ax² + bx + c = 0`
-  * Cálculo do Δ (delta)
-  * Retorno das raízes reais (quando existem)
+### 2\. Algébrico (Equações & Inequações)
 
----
+  * **Seletor Dinâmico de Grau:** Botão secundário para alternar entre 1º e 2º grau.
+  * **Equações:** Resolução instantânea com cálculo de Delta ($\Delta$) e raízes reais.
+  * **Inequações:** Análise de intervalos e inversão automática de sinais para coeficientes negativos.
 
-### ⚖️ Inequações
+### 3\. Teoria de Conjuntos
 
-* **Inequação do 1º grau**
+  * **União (∪):** Fusão de elementos sem duplicatas.
+  * **Interseção (∩):** Identificação de elementos em comum entre grupos.
 
-  * Formato: `ax + b > 0`
-  * Considera inversão de sinal automaticamente
+-----
 
-* **Inequação do 2º grau**
+## 🧪 Laboratório de Testes (Quick Start)
 
-  * Formato: `ax² + bx + c > 0`
-  * Análise completa:
+Use estes valores para validar a engine após a instalação:
 
-    * Δ < 0 → sempre positivo ou negativo
-    * Δ ≥ 0 → intervalos de solução
+| Módulo | Entrada (a, b, c) | Saída Esperada |
+| :--- | :--- | :--- |
+| **Eq. 2º Grau** | $a=1, b=-5, c=6$ | $x_1=3, x_2=2, \Delta=1$ |
+| **Eq. 1º Grau** | $a=2, b=-10$ | $x=5$ |
+| **Ineq. 1º Grau** | $a=-3, b=9$ | $x < 3$ (Sinal invertido) |
+| **Juros Comp.** | $C=1000, i=2\%, t=12$ | $M=R\$ 1.268,24$ |
 
----
+-----
 
-## 🧠 Como funciona
+## 🚀 Instalação e Uso
 
-O sistema funciona totalmente no navegador, sem necessidade de backend.
+O sistema é **Zero Dependency**. Você só precisa de um navegador moderno.
 
-### 🔹 Estrutura
+1.  Clone o repositório:
+    ```bash
+    git clone https://github.com/SeuUsuario/Site-para-contar-Juros-Equa-es-e-Inequa-es.git
+    ```
+2.  Entre na pasta:
+    ```bash
+    cd Site-para-contar-Juros-Equa-es-e-Inequa-es
+    ```
+3.  Abra o arquivo `index.html` no seu navegador.
 
-* `index.html` → Estrutura da aplicação
-* `style.css` → Estilização da interface
-* `script.js` → Lógica matemática
+-----
 
----
+## 💻 Tech Stack
 
-### 🔹 Navegação
+  * **Linguagem:** JavaScript (ES6+)
+  * **Estilização:** CSS3 Moderno (Custom Properties, CSS Grid, Flexbox)
+  * **Estrutura:** HTML5 Semântico
+  * **Tipografia:** Space Grotesk & IBM Plex Mono
 
-O usuário alterna entre as funcionalidades através de abas.
 
-```javascript
-function showTab(tab) {
-  document.querySelectorAll('.content').forEach(div => {
-    div.style.display = 'none';
-  });
-  document.getElementById(tab).style.display = 'block';
-}
-```
 
----
+-----
 
-### 🔹 Exemplo de cálculo
+**Desenvolvido por [Daniel de Borba Sousa]** *Impulsionando a matemática com design futurista.*
 
-#### Juros Compostos:
 
-```javascript
-let montante = c * Math.pow(1 + i, t);
-```
-
-#### Equação do 2º grau:
-
-```javascript
-let delta = b * b - 4 * a * c;
-```
-
----
-
-## 🎯 Objetivo
-
-Este projeto foi desenvolvido com foco em:
-
-* Praticar lógica de programação em JavaScript
-* Aplicar conceitos matemáticos na prática
-* Criar uma interface simples e funcional
-* Servir como base para evolução futura (gráficos, histórico, etc.)
-
----
-
-## 💡 Possíveis melhorias
-
-* 📊 Visualização gráfica das funções
-* 💾 Armazenamento de histórico (localStorage)
-* 📱 Responsividade mobile
-* 🎓 Resolução passo a passo
-
----
-
-## 🛠️ Tecnologias utilizadas
-
-* HTML5
-* CSS3
-* JavaScript (Vanilla)
-
----
-
-## 📌 Como executar
-
-1. Clone o repositório:
-
-```bash
-git clone <seu-repo>
-```
-
-2. Abra o arquivo:
-
-```bash
-index.html
-```
-
----
-
-## 👨‍💻 Autor
-
-Desenvolvido por mim mesmo  — focado em transformar a tecnologia no amanhã 🚀
